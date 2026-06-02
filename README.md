@@ -18,4 +18,9 @@ By default, the program generates ASCII art for the Mona Lisa image. To generate
 
 ## Preview
 
-Below is an example of how the result should look:
+Below is an example of how the result should look:\
+Mona Lisa \ 
+<img width="547" height="770" alt="image" src="https://github.com/user-attachments/assets/e1beb94d-8ae3-4267-bb7c-53466a4847e1" />
+
+Whale Shark \
+<img width="603" height="740" alt="image" src="https://github.com/user-attachments/assets/d9846d26-d165-40d6-a751-bb8db7b9efa7" />
