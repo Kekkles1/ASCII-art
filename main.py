@@ -1,7 +1,9 @@
 import cv2
+import shutil
 
-#image_path="MonaLisa.jpg"
-image_path="my.jpg"
+image_path="mona_lisa.jpg"
+#image_path="whale_shark.jpeg"
+
 
 image=cv2.imread(image_path)
 if (image is None):
@@ -10,8 +12,20 @@ else:
     print("image exists!")
 
 #use to resize
-new_width=200
-new_height=100
+terminal_size = shutil.get_terminal_size((120, 40))
+terminal_width = terminal_size.columns
+terminal_height = terminal_size.lines
+
+original_height, original_width = image.shape[:2]
+
+new_width = min(terminal_width - 2, 120)
+new_height = int((original_height / original_width) * new_width * 0.45)
+
+max_height = terminal_height - 8
+
+if new_height > max_height:
+    new_height = max_height
+    new_width = int((new_height / 0.45) * (original_width / original_height))
 
 #resize the image
 resize_image=cv2.resize(image,(new_width,new_height),interpolation=cv2.INTER_AREA)
@@ -31,7 +45,7 @@ pixel_matrix=[[(0,0,0) for _ in range(width)] for _ in range(height)]
 #image.shape[0] is height 
 for y in range(resize_image.shape[0]):
     for x in range(resize_image.shape[1]):
-        pixel_matrix[y][x]=image[y][x]
+        pixel_matrix[y][x]=resize_image[y][x]
 
 
 #create a brightness matrix
@@ -42,10 +56,9 @@ for y in range(height):
         r,g,b=pixel_matrix[y][x]
         avg=sum((r,g,b))
         avg=avg/3
-        bright_matrix[y][x]=avg
+        bright_matrix[y][x]=int(avg)
 
 #brightness values ranging from 0-130
-
 #darkest to brightest
 #`^\",:;Il!i~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$
 #ASCII character matrix
